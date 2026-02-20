@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="DataAccess/DataAccess.csproj" Id="4fe6de16-69a9-425b-81ce-7e365353fa46" />
+  <Project Path="ExploreUA/ExploreUA.csproj" />
+</Solution>
