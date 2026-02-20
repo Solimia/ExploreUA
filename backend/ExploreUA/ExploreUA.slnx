@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="BusinessLogic/BusinessLogic.csproj" Id="0f5b0a1e-d215-4d8f-954e-f36240eaced5" />
   <Project Path="DataAccess/DataAccess.csproj" Id="4fe6de16-69a9-425b-81ce-7e365353fa46" />
   <Project Path="ExploreUA/ExploreUA.csproj" />
 </Solution>
