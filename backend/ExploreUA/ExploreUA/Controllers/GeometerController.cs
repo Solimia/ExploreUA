@@ -1,4 +1,6 @@
-﻿using DataAccess.Data;
+﻿using AutoMapper;
+using BusinessLogic.DTO_s;
+using DataAccess.Data;
 using DataAccess.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,15 +12,19 @@ namespace ExploreUA.Controllers
     public class GeometerController : Controller
     {
         private readonly ExploreUaDbContext _context;
+        private readonly IMapper _mapper;
 
-        public GeometerController(ExploreUaDbContext context)
+        public GeometerController(ExploreUaDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
         [HttpGet(Name = "Get_Geometer")]
-        public IEnumerable<Geometer> Get_Geometer()
+        public IEnumerable<GeometerDto> Get_Geometer()
         {
-            return _context.Geometers.ToList();
+
+            var geometers = _context.Geometers.Include(x => x.Images).ToList();
+            return _mapper.Map<IEnumerable<GeometerDto>>(geometers);
         }
         [HttpPost("add")]
         public Geometer Add_Geometer(string name, string description, double lat, double lon)
@@ -28,7 +34,7 @@ namespace ExploreUA.Controllers
                 Name = name,
                 Description = description,
                 Latitude = lat,
-                Longitude = lon
+                Longitude = lon 
             };
 
             _context.Geometers.Add(newgeometer);
