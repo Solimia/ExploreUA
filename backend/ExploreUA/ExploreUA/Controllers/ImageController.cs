@@ -19,80 +19,49 @@ namespace ExploreUA.Controllers
         private readonly ExploreUaDbContext _context;
         private readonly IMapper _mapper;
         private readonly IBlobInterface _blobInterface;
-        public ImageController(ExploreUaDbContext context,IMapper mapper,IConfiguration config, IBlobInterface blobInterface)
+        private readonly IImageInterface _imageService;
+        public ImageController(ExploreUaDbContext context,IMapper mapper,IConfiguration config, IBlobInterface blobInterface,IImageInterface imageInterface)
         {
             _context = context;
             _mapper = mapper;
             _config = config;
             _blobInterface = blobInterface;
+            _imageService = imageInterface;
         }
 
 
         [HttpGet("Get_Images")]
-        public IEnumerable<ImageDto> Get_Images()
+        public async Task<ActionResult<IEnumerable<ImageDto>>> Get_Images()
         {
-            var images = _context.Images.ToList();
+            var result = await _imageService.Get_Images();
 
-            return _mapper.Map<IEnumerable<ImageDto>>(images);
+            return Ok(result);
         }
 
         [HttpPost("Add_Image")]
-        public async Task<IActionResult> Add_Image(IFormFile file, int GeometerId)
+        public async Task<ActionResult<CreateImageDto>> Add_Image(IFormFile file, int GeometerId)
         {
+            var result = await _imageService.Add_Image(file, GeometerId);
 
-            var ulr = await _blobInterface.UploadBlobAsync(file);
-            var image = new CreateImageDto
-            {
-                ImgUrl = ulr,
-                GeometerId = GeometerId
-            };
-         
-            _context.Images .Add(_mapper.Map<Image>(image));
-            _context.SaveChanges();
-
-            return Ok(image);
+            return Ok(result);
         }
 
         [HttpPut("Update_Image")]
-        public async Task<IActionResult> Update_Image(int Id,IFormFile? file,string? Img_Url, int GeometerId)
+        public async Task<ActionResult<ImageDto>> Update_Image(int Id,IFormFile? file,string? Img_Url, int GeometerId)
         {
 
-            var image = _context.Images.FirstOrDefault(q => q.Id == Id);
+            var result = await _imageService.Update_Image(Id, file, Img_Url, GeometerId);
 
-            if (image == null)
-                return NotFound();
-           
-
-            if (string.IsNullOrWhiteSpace(Img_Url))
-            {
-                var ulr = await _blobInterface.UploadBlobAsync(file);
-                image.GeometerId = GeometerId;
-                image.ImgUrl = ulr;
-            }
-            else
-            {
-                image.GeometerId = GeometerId;
-                image.ImgUrl = Img_Url;
-            }
-     
-            _context.SaveChanges();
-
-            return Ok(_mapper.Map<ImageDto>(image));
+            return Ok(result);
         }
 
         [HttpDelete("Remove_Image")]
-        public ActionResult<CreateImageDto> Remove_Image(int Id)
+        public async Task<ActionResult<bool>> Remove_Image(int Id)
         {
-            var image = _context.Images.FirstOrDefault(q => q.Id == Id);
+            
+            var result = await _imageService.Remove_Image(Id);
 
-            if (image == null)
-                return NotFound();
-
-            _context.Images.Remove(image);
-
-            _context.SaveChanges();
-
-            return Ok(image);
+            return Ok(result);
         }
     }
 }
