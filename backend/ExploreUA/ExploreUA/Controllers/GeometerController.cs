@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
 using BusinessLogic.DTO_s;
+using BusinessLogic.Interfaces;
+using BusinessLogic.Services;
 using DataAccess.Data;
 using DataAccess.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata;
 
 namespace ExploreUA.Controllers
 {
@@ -13,72 +16,59 @@ namespace ExploreUA.Controllers
     {
         private readonly ExploreUaDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IGeometerInterface _geometerService;
 
-        public GeometerController(ExploreUaDbContext context, IMapper mapper)
+        public GeometerController(ExploreUaDbContext context, IMapper mapper, IGeometerInterface geometerService)
         {
             _context = context;
             _mapper = mapper;
+            _geometerService = geometerService;
         }
         [HttpGet(Name = "Get_Geometer")]
-        public IEnumerable<GeometerDto> Get_Geometer()
+        public async Task<ActionResult<IEnumerable<GeometerDto>>> Get_Geometer()
         {
-
-            var geometers = _context.Geometers.Include(x => x.Images).ToList();
-            return _mapper.Map<IEnumerable<GeometerDto>>(geometers);
+            var result = await _geometerService.Get_Geometer();
+            return Ok(result);
         }
-        [HttpPost("add")]
-        public Geometer Add_Geometer(string name, string description, double lat, double lon)
+
+        [HttpGet("Get_Geometer_From_Title")]
+        public async Task<ActionResult<IEnumerable<GeometerDto>>> Get_Geometer_From_Title(string Title)
         {
-            var newgeometer = new Geometer
-            {
-                Name = name,
-                Description = description,
-                Latitude = lat,
-                Longitude = lon 
-            };
+            var result = await _geometerService.Get_Geometer_From_Title(Title);
+            return Ok(result);
+        }
+        [HttpGet("Get_Geometer_From_Description")]
+        public async Task<ActionResult<IEnumerable<GeometerDto>>> Get_Geometer_From_Description(string Description)
+        {
+            var result = await _geometerService.Get_Geometer_From_Description(Description);
+            return Ok(result);
+        }
 
-            _context.Geometers.Add(newgeometer);
-            _context.SaveChanges();
 
-            return newgeometer;
+        [HttpPost("add")]
+        public async Task<ActionResult<Geometer>> Add_Geometer(string name, string description, double lat, double lon)
+        {
+            var result = await _geometerService.Add_Geometer(name, description, lat, lon);
+
+            return Ok(result);
         }
         [HttpPut("edit")]
 
-        public ActionResult<Geometer> Edit_Geometer(int id, string name, string description, double lat, double lon)
+        public async Task<ActionResult<Geometer>> Edit_Geometer(int id, string name, string description, double lat, double lon)
         {
+            var result = await _geometerService.Edit_Geometer(id, name, description, lat, lon);
 
-            var geometer = _context.Geometers.FirstOrDefault(g => g.Id == id);
-
-            if (geometer == null)
-                return BadRequest("Geometer not found");
-
-            geometer.Name = name;
-            geometer.Description = description;
-            geometer.Latitude = lat;
-            geometer.Longitude = lon;
-
-
-            _context.SaveChanges();
-
-            return Ok(geometer);
+            return Ok(result);
         }
 
         [HttpDelete("delete")]
 
-        public ActionResult<Geometer> DeleteById_Geometer(int id)
+        public async Task<ActionResult<bool>> DeleteById_Geometer(int id)
         {
 
-            var geometer = _context.Geometers.FirstOrDefault(g => g.Id == id);
+            var result = await _geometerService.DeleteById_Geometer(id);
 
-
-            if (geometer == null)
-                return BadRequest("Geometer not found");
-
-            _context.Geometers.Remove(geometer);
-
-            _context.SaveChanges();
-
-            return Ok(geometer);
+            return Ok(result);
         }
     }
 }

@@ -25,6 +25,9 @@ builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfi
 
 
 builder.Services.AddScoped<IBlobInterface, BlobService>();
+builder.Services.AddScoped<IGeometerInterface, GeometerService>();
+builder.Services.AddScoped<IImageInterface, ImageService>();
+
 
 var app = builder.Build();
 
