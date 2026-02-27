@@ -12,6 +12,9 @@ function App() {
         {/* Головна сторінка без Sidebar/Map */}
         <Route path='/' element={<Home />} />
 
+    
+
+
         {/* Сторінка локацій зі своїм Layout */}
         <Route path='/locations' element={<LocationsLayout />} />
       </Routes>
