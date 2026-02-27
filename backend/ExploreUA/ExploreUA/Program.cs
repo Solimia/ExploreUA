@@ -5,6 +5,7 @@ using DataAccess.Data;
 using DataAccess.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Rent_buildings_app_WebApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +31,7 @@ builder.Services.AddScoped<IImageInterface, ImageService>();
 
 
 var app = builder.Build();
-
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
