@@ -1,0 +1,139 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.home {
+  background-color: #f4f6f9;
+}
+
+/* HERO */
+
+.hero {
+  height: 100vh;
+  background: url("https://lp-cms-production.imgix.net/2019-06/a6469f3993128cbcdde6e2b0a90aa1d3-kyiv.jpg?auto=format,compress&q=72&w=1095&fit=crop&crop=faces,edges")
+    no-repeat center/cover;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.55);
+  padding: 50px;
+  text-align: center;
+  color: white;
+  border-radius: 12px;
+  max-width: 800px;
+}
+
+.hero-overlay h1 {
+  font-size: 52px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.hero-overlay p {
+  font-size: 18px;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.search-container input {
+  width: 350px;
+  padding: 15px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+}
+
+.search-container button {
+  padding: 15px 30px;
+  border-radius: 8px;
+  border: none;
+  background-color: #2ea3f2;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.search-container button:hover {
+  background-color: #1c7fc1;
+}
+
+/* DIRECTIONS */
+
+.directions {
+  padding: 80px 40px;
+  text-align: center;
+  background-color: #ffffff;
+}
+
+.directions h2 {
+  font-size: 32px;
+  color: #2ea3f2;
+  margin-bottom: 15px;
+}
+
+.subtitle {
+  max-width: 700px;
+  margin: 0 auto 50px;
+  color: #555;
+  font-size: 16px;
+}
+
+.direction-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.direction-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.direction-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.direction-card:hover img {
+  transform: scale(1.1);
+}
+
+.card-overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  color: white;
+  text-align: left;
+}
+
+.card-overlay h3 {
+  font-size: 22px;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  background: #0f172a;
+  color: white;
+  margin-top: 40px;
+}
