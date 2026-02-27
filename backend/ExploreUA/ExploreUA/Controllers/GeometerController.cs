@@ -31,6 +31,13 @@ namespace ExploreUA.Controllers
             return Ok(result);
         }
 
+        [HttpGet("Get_Geometer_By_Id")]
+        public async Task<ActionResult<IEnumerable<GeometerDto>>> Get_Geometer_By_Id(int Id)
+        {
+            var result = await _geometerService.Get_Geometer_By_Id(Id);
+            return Ok(result);
+        }
+
         [HttpGet("Get_Geometer_From_Title")]
         public async Task<ActionResult<IEnumerable<GeometerDto>>> Get_Geometer_From_Title(string Title)
         {

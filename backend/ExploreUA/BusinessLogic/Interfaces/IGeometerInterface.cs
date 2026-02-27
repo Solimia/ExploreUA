@@ -11,7 +11,7 @@ namespace BusinessLogic.Interfaces
     public interface IGeometerInterface
     {
         Task<IEnumerable<GeometerDto>> Get_Geometer();
-
+        Task<GeometerDto> Get_Geometer_By_Id(int id);
         Task<IEnumerable<GeometerDto>> Get_Geometer_From_Title(string Title);
 
         Task<IEnumerable<GeometerDto>> Get_Geometer_From_Description(string Description);
