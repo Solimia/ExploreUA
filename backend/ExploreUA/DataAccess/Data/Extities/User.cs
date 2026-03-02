@@ -1,4 +1,5 @@
 ﻿//using Microsoft.AspNet.Identity.EntityFramework;
+using DataAccess.Data.Extities;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,6 @@ namespace DataAccess.Data.Entities
 {
     public class User : IdentityUser
     {
-
+        public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
     }
 }

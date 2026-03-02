@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessLogic.DTO_s;
+using BusinessLogic.DTO_s.Account;
 using DataAccess.Data.Entities;
 using DataAccess.Data.Extities;
 using System;
@@ -25,6 +26,10 @@ namespace BusinessLogic.Configurations
 
             CreateMap<Image, UpdateImageDto>();
             CreateMap<UpdateImageDto, Image>();
+
+            CreateMap<RegisterModel, User>()
+                .ForMember(x => x.UserName, opt => opt.MapFrom(s => s.Email))
+                .ForMember(x => x.PasswordHash, opt => opt.Ignore());
         }
     }
 }
