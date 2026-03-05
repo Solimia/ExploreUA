@@ -10,7 +10,7 @@ function LocationsLayout() {
 
   const handleSelectLocation = (location) => {
     setSelectedLocation(location);
-    setMapCenter([location.lat, location.lng]);
+    setMapCenter([location.latitude, location.longitude]);
     setMapZoom(10);
   };
 

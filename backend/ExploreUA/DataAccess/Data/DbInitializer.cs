@@ -21,7 +21,9 @@ namespace DataAccess.Data
                     Name = "Kyiv Central Office",
                     Description = "Головний офіс оренди в центрі столиці",
                     Latitude = 50.4526,
-                    Longitude = 30.5144
+                    Longitude = 30.5144,
+                    Region = "Kyiv",
+                    DetailedDescription = "Головний офіс оренди в центрі столиці, з широким вибором автомобілів та зручним розташуванням для клієнтів."
                 },
                 new Geometer
                 {
@@ -29,7 +31,9 @@ namespace DataAccess.Data
                     Name = "Kyiv Branch North",
                     Description = "Північне відділення",
                     Latitude = 50.4600,
-                    Longitude = 30.5200
+                    Longitude = 30.5200,
+                    Region = "Kyiv",
+                    DetailedDescription = "Північне відділення оренди автомобілів у Києві, з різноманітним вибором транспортних засобів та зручним розташуванням для клієнтів."
                 }
             );
         }
