@@ -56,14 +56,17 @@ namespace BusinessLogic.Services
         }
   
 
-        public async Task<Geometer> Add_Geometer(string name, string description, double lat, double lon)
+        public async Task<Geometer> Add_Geometer(string name, string description, double lat, double lon,string region,string detailedDescription)
         {
             var newgeometer = new Geometer
             {
                 Name = name,
                 Description = description,
                 Latitude = lat,
-                Longitude = lon
+                Longitude = lon,
+                DetailedDescription = detailedDescription,
+                Region = region
+
             };
 
             await _context.Geometers.AddAsync(newgeometer);

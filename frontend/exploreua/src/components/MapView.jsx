@@ -4,7 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
-import locations from '../data/locations';
+
 
 
 delete L.Icon.Default.prototype._getIconUrl;
@@ -15,11 +15,24 @@ L.Icon.Default.mergeOptions({
 });
 
 const MapView = ({ center = [48.5, 31.5], zoom = 6, onMarkerClick }) => {
-  
+
   const mapRef = useRef(null);
   const mapInstance = useRef(null);
   const markersLayer = useRef(null);
-  
+  const [locations, setLocations] = React.useState([]);
+  useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        const response = await fetch('https://localhost:7151/api/Geometer');
+        const data = await response.json();
+        setLocations(data);
+        console.log('Завантажені локації для карти:', data);
+      } catch (error) {
+        console.error('Помилка при завантаженні локацій:', error);
+      }
+    };
+    fetchLocations();
+  }, []);
 
   useEffect(() => {
     if (mapInstance.current) return;
@@ -39,6 +52,16 @@ const MapView = ({ center = [48.5, 31.5], zoom = 6, onMarkerClick }) => {
   }, [center, zoom]);
 
   useEffect(() => {
+    if (!mapInstance.current || !center || center[0] === undefined || center[1] === undefined) {
+      return;
+    }
+
+    mapInstance.current.flyTo(center, zoom, {
+      animate: true,
+      duration: 1.5
+    });
+  }, [center, zoom]);
+  useEffect(() => {
     if (!mapInstance.current) return;
 
     // Очищаємо попередні маркери
@@ -46,7 +69,7 @@ const MapView = ({ center = [48.5, 31.5], zoom = 6, onMarkerClick }) => {
 
     // Додаємо нові маркери з обробником кліку
     locations.forEach(loc => {
-      const marker = L.marker([loc.lat, loc.lng])
+      const marker = L.marker([loc.latitude, loc.longitude])
         .bindPopup(`<b>${loc.name}</b><br>${loc.description || ''}`);
 
       marker.on('click', () => {
