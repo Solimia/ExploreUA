@@ -1,5 +1,5 @@
 import Home from "./Home/Home"
-import LocationsLayout from "./Layouts/LocatiosLayout"
+import LocationsLayout from "./pages/LocatiosLayout"
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Navbar from "./Navbar"
 
