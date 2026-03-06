@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import MapView from '../components/MapView';
 import './LocationsLayout.css';
+import Navbar from '../Navbar';
 
 function LocationsLayout() {
   const [selectedLocation, setSelectedLocation] = useState(null);
@@ -21,20 +22,27 @@ function LocationsLayout() {
   };
 
   return (
-    <div className="Layout-class">
-      <main className="main-container">
-        <Sidebar 
-          selectedLocation={selectedLocation}
-          onSelectLocation={handleSelectLocation}
-          onBack={handleBackToList}
-        />
-        <MapView 
-          center={mapCenter} 
-          zoom={mapZoom} 
-          onMarkerClick={handleSelectLocation}
-        />
-      </main>
-    </div>
+    <>
+      
+
+      <div className="Layout-class">
+
+
+        <main className="main-container">
+          <Sidebar
+            selectedLocation={selectedLocation}
+            onSelectLocation={handleSelectLocation}
+            onBack={handleBackToList}
+          />
+          <MapView
+            center={mapCenter}
+            zoom={mapZoom}
+            onMarkerClick={handleSelectLocation}
+          />
+        </main>
+      </div>
+    </>
+
   );
 }
 
