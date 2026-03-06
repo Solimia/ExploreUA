@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using BuisnessLogic;
+using BusinessLogic.DTO_s;
 using BusinessLogic.DTO_s.Account;
 using BusinessLogic.Interfaces;
 using DataAccess.Data;
 using DataAccess.Data.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
@@ -13,7 +15,6 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 
 namespace BusinessLogic.Services
 {
@@ -26,14 +27,17 @@ namespace BusinessLogic.Services
         public SignInManager<User> signInManager { get; }
         public IMapper mapper { get; }
 
-        public AccountService(IJwtService jwtService, UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper, ExploreUaDbContext ctx)
+        private readonly ExploreUaDbContext _context;
+
+        public AccountService(IJwtService jwtService, UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper, ExploreUaDbContext ctx,ExploreUaDbContext _context)
         {
             this.jwtService = jwtService;
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.mapper = mapper;
             this.ctx = ctx;
-            
+            this._context = _context;
+
 
         }
 
@@ -99,5 +103,29 @@ namespace BusinessLogic.Services
             await signInManager.SignOutAsync();
 
         }
+        public async Task<IEnumerable<User>> Get_Accounts()
+        {
+
+            var geometers = _context.Users.ToList();
+            if (geometers == null) throw new HttpException("Помилка: Ні одну геометку не знайденно", HttpStatusCode.NotFound);
+
+            return geometers;
+        }
+        public async Task<UserProfileDto> GetProfile(string userId)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return null; 
+            }
+            var profile = new UserProfileDto
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email
+            };
+            return profile;
+        }
+
     }
 }

@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using BusinessLogic.DTO_s.Account;
 using BusinessLogic.Interfaces;
-using BusinessLogic.DTO_s.Account;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 namespace ExploreUA.Controllers
 {
     [Route("api/[controller]")]
@@ -47,6 +49,35 @@ namespace ExploreUA.Controllers
 
 
             return Ok(res);
+        }
+        [HttpGet("Getwww")]
+
+        public async Task<IActionResult> getUsers()
+        {
+            var res = await _accountService.Get_Accounts();
+
+
+            return Ok(res);
+        }
+        [Authorize] 
+        [HttpGet("me")]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+           
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized();
+            }
+            var userProfile = await _accountService.GetProfile(userId);
+
+            if (userProfile == null)
+            {
+                return NotFound("Користувача не знайдено.");
+            }
+
+            return Ok(userProfile);
         }
     }
 }

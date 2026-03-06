@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './Home.css';
- 
+import Navbar from '../Navbar';
+
 const Home = () => {
   const [cities, setCities] = useState([]);
   const [filteredCities, setFilteredCities] = useState([]);
   const [activeFilter, setActiveFilter] = useState('all');
   const [loading, setLoading] = useState(true);
   const [selectedCity, setSelectedCity] = useState(null);
- 
+
   // Дані про міста України
   const citiesData = [
     {
@@ -82,7 +83,7 @@ const Home = () => {
       highlights: ['Кругла площа', 'Біла альтанка', 'Іванова гора'],
       population: '279 тис.'
     },
-        {
+    {
       id: 9,
       name: 'Кам\'янець-Подільський',
       region: 'західний',
@@ -92,7 +93,7 @@ const Home = () => {
       population: '279 тис.'
     }
   ];
- 
+
   useEffect(() => {
     // Симуляція завантаження даних
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -102,9 +103,9 @@ const Home = () => {
       setFilteredCities(citiesData);
       setLoading(false);
     }, 1500);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
- 
+
   useEffect(() => {
     // Фільтрація міст за регіоном
     if (activeFilter === 'all') {
@@ -115,21 +116,22 @@ const Home = () => {
       setFilteredCities(filtered);
     }
   }, [activeFilter, cities]);
- 
+
   const handleFilterChange = (filter) => {
     setActiveFilter(filter);
   };
- 
+
   const handleCityClick = (city) => {
     setSelectedCity(city);
   };
- 
+
   const handleCloseModal = () => {
     setSelectedCity(null);
   };
- 
+
   return (
     <div className="home-container">
+      
       {/* Hero секція з фоновим зображенням */}
       <section className="hero-section">
         <div className="hero-overlay"></div>
@@ -142,7 +144,7 @@ const Home = () => {
           </button>
         </div>
       </section>
- 
+
       {/* Секція фільтрів */}
       <section className="filters-section">
         <div className="filters-container">
@@ -178,7 +180,7 @@ const Home = () => {
           </button>
         </div>
       </section>
- 
+
       {/* Секція з містами */}
       <section id="cities-section" className="cities-section">
         {loading ? (
@@ -223,7 +225,7 @@ const Home = () => {
           </>
         )}
       </section>
- 
+
       {/* Модальне вікно з деталями міста */}
       {selectedCity && (
         <div className="modal-overlay animate-fade-in" onClick={handleCloseModal}>
@@ -246,11 +248,11 @@ const Home = () => {
             </div>
           </div>
         </div>
-       
+
       )}
     </div>
   );
 };
- 
- 
+
+
 export default Home;

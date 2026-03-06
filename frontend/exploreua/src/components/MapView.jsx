@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
+import Navbar from '../Navbar';
 
 
 
@@ -32,7 +33,7 @@ const MapView = ({ center = [48.5, 31.5], zoom = 6, onMarkerClick }) => {
       }
     };
     fetchLocations();
-    
+
   }, []);
 
   useEffect(() => {
@@ -52,7 +53,7 @@ const MapView = ({ center = [48.5, 31.5], zoom = 6, onMarkerClick }) => {
     };
   }, [center, zoom]);
 
-  
+
   useEffect(() => {
     if (!mapInstance.current) return;
 
@@ -90,9 +91,17 @@ const MapView = ({ center = [48.5, 31.5], zoom = 6, onMarkerClick }) => {
       markersLayer.current.addLayer(marker);
     });
   }, [locations]);
-  
 
-  return <div ref={mapRef} style={{ height: '100%', width: '100%' }} />;
+
+  return (
+    <>
+      <div ref={mapRef} style={{ height: '100%', width: '100%' }}>
+       
+
+      </div>
+    </>
+  );
+
 };
 
 

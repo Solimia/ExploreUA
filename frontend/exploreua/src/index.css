@@ -67,6 +67,28 @@ button:focus-visible {
   }
 } */
 
-#root{
+#root {
   height: 100vh;
+}
+
+
+@font-face {
+  font-family: "e-Ukraine";
+  src: url("../fonts/e-Ukraine-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "e-UkraineR";
+  src: url("../fonts/e-Ukraine-Regular.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "e-UkraineL";
+  src: url("../fonts/e-Ukraine-Light.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
 }
