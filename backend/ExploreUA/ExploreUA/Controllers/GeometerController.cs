@@ -87,8 +87,6 @@ namespace ExploreUA.Controllers
 
             try
             {
-                // Додаємо весь список у контекст. 
-                // EF сам розбереться з вкладеними Images
                 _context.Geometers.AddRange(locations);
 
                 await _context.SaveChangesAsync();
