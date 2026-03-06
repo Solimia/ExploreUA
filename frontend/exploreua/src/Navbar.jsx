@@ -23,6 +23,9 @@ function Navbar() {
             <li className="nav-item">
               <a className="nav-link" href="#">Маршрути</a>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/3d-tours">3д тури</Link>
+            </li>
           </ul>
 
           <form className="d-flex">
