@@ -11,7 +11,7 @@ const Sidebar = ({ selectedLocation, onSelectLocation, onBack }) => {
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const response = await fetch('https://localhost:7151/api/Geometer');
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/Geometer`);
         const data = await response.json();
         setLocations(data);
       } catch (error) {

@@ -23,7 +23,7 @@ const MapView = ({ center = [48.5, 31.5], zoom = 6, onMarkerClick }) => {
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const response = await fetch('https://localhost:7151/api/Geometer');
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/Geometer`);
         const data = await response.json();
         setLocations(data);
         console.log('Завантажені локації для карти:', data);
@@ -32,6 +32,7 @@ const MapView = ({ center = [48.5, 31.5], zoom = 6, onMarkerClick }) => {
       }
     };
     fetchLocations();
+    
   }, []);
 
   useEffect(() => {
@@ -51,16 +52,7 @@ const MapView = ({ center = [48.5, 31.5], zoom = 6, onMarkerClick }) => {
     };
   }, [center, zoom]);
 
-  useEffect(() => {
-    if (!mapInstance.current || !center || center[0] === undefined || center[1] === undefined) {
-      return;
-    }
-
-    mapInstance.current.flyTo(center, zoom, {
-      animate: true,
-      duration: 1.5
-    });
-  }, [center, zoom]);
+  
   useEffect(() => {
     if (!mapInstance.current) return;
 
@@ -78,7 +70,27 @@ const MapView = ({ center = [48.5, 31.5], zoom = 6, onMarkerClick }) => {
 
       markersLayer.current.addLayer(marker);
     });
-  }, [onMarkerClick]); // Залежність від onMarkerClick, щоб оновити обробники при зміні
+  }, [onMarkerClick]);
+
+  useEffect(() => {
+    if (!mapInstance.current) return;
+
+    // Очищаємо попередні маркери
+    markersLayer.current.clearLayers();
+
+    // Додаємо нові маркери з обробником кліку
+    locations.forEach(loc => {
+      const marker = L.marker([loc.latitude, loc.longitude])
+        .bindPopup(`<b>${loc.name}</b><br>${loc.description || ''}`);
+
+      marker.on('click', () => {
+        if (onMarkerClick) onMarkerClick(loc);
+      });
+
+      markersLayer.current.addLayer(marker);
+    });
+  }, [locations]);
+  
 
   return <div ref={mapRef} style={{ height: '100%', width: '100%' }} />;
 };

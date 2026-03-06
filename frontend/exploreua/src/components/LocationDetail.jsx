@@ -20,7 +20,7 @@ const LocationDetail = ({ selectedLocation, allLocations = [], onSelectLocation,
   useEffect(() => {
     const fetchLocation = async () => {
       try {
-        const response = await fetch(`https://localhost:7151/api/Geometer/Get_Geometer_By_Id?Id=${selectedLocation.id}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/Geometer/Get_Geometer_By_Id?Id=${selectedLocation.id}`);
         const data = await response.json();
         setLocation(data);
       } catch (error) {
