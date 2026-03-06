@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using BuisnessLogic;
 using BusinessLogic.DTO_s;
 using BusinessLogic.Interfaces;
 using DataAccess.Data;
+using DataAccess.Data.Entities;
 using DataAccess.Data.Extities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,6 +35,7 @@ namespace BusinessLogic.Services
         public async Task<IEnumerable<ImageDto>> Get_Images()
         {
             var images = _context.Images.ToList();
+            if (images == null) throw new HttpException("Помилка: Ні одну картинку не знайденно", HttpStatusCode.NotFound);
             return _mapper.Map<IEnumerable<ImageDto>>(images);
         }
 
@@ -54,12 +58,12 @@ namespace BusinessLogic.Services
         public async Task<ImageDto> Update_Image(int Id, IFormFile? file, string? Img_Url, int GeometerId)
         {
             var image = _context.Images.FirstOrDefault(q => q.Id == Id);
+            if (image == null) throw new HttpException($"Помилка: Картинку з ID {Id} не знайдено.", HttpStatusCode.NotFound);
 
-            if (image == null) return null; 
 
             if (string.IsNullOrWhiteSpace(Img_Url))
             {
-                if (file == null) return null;
+                if (file == null) throw new HttpException($"Помилка: Ви не передали жодного файлу.", HttpStatusCode.NotFound);
                 var ulr = await _blobInterface.UploadBlobAsync(file);
                 image.GeometerId = GeometerId;
                 image.ImgUrl = ulr;
@@ -78,6 +82,8 @@ namespace BusinessLogic.Services
         public async Task<bool> Remove_Image(int Id)
         {
             var image = _context.Images.FirstOrDefault(q => q.Id == Id);
+            if (image == null) throw new HttpException($"Помилка: Картинку з ID {Id} не знайдено.", HttpStatusCode.NotFound);
+
 
             if (image == null) return false;
                 

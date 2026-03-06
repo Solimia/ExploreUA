@@ -1,5 +1,5 @@
 import Home from "./Home/Home"
-import LocationsLayout from "./Layouts/LocatiosLayout"
+import LocationsLayout from "./pages/LocatiosLayout"
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Navbar from "./Navbar"
 import Tours from "./Tours_3d/Tours"
@@ -13,6 +13,9 @@ function App() {
         <Routes>
         {/* Головна сторінка без Sidebar/Map */}
         <Route path='/' element={<Home />} />
+
+    
+
 
         {/* Сторінка локацій зі своїм Layout */}
         <Route path='/locations' element={<LocationsLayout />} />

@@ -21,6 +21,7 @@ namespace DataAccess.Data
 
         public DbSet<Geometer> Geometers { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

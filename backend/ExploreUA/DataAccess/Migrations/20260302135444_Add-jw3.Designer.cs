@@ -4,6 +4,7 @@ using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ExploreUaDbContext))]
-    partial class ExploreUaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260302135444_Add-jw3")]
+    partial class Addjw3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,10 +37,6 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DetailedDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double>("Latitude")
                         .HasColumnType("float");
 
@@ -45,10 +44,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Region")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -61,21 +56,17 @@ namespace DataAccess.Migrations
                         {
                             Id = 1,
                             Description = "Головний офіс оренди в центрі столиці",
-                            DetailedDescription = "Головний офіс оренди в центрі столиці, з широким вибором автомобілів та зручним розташуванням для клієнтів.",
                             Latitude = 50.452599999999997,
                             Longitude = 30.514399999999998,
-                            Name = "Kyiv Central Office",
-                            Region = "Kyiv"
+                            Name = "Kyiv Central Office"
                         },
                         new
                         {
                             Id = 2,
                             Description = "Північне відділення",
-                            DetailedDescription = "Північне відділення оренди автомобілів у Києві, з різноманітним вибором транспортних засобів та зручним розташуванням для клієнтів.",
                             Latitude = 50.460000000000001,
                             Longitude = 30.52,
-                            Name = "Kyiv Branch North",
-                            Region = "Kyiv"
+                            Name = "Kyiv Branch North"
                         });
                 });
 
@@ -299,10 +290,12 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -339,10 +332,12 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
