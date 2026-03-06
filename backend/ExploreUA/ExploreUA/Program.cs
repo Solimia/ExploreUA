@@ -98,7 +98,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowMyFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173") 
+        policy.WithOrigins("http://localhost:5173", "https://exploreua.vercel.app") 
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
