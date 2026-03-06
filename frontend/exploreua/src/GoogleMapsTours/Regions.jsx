@@ -54,23 +54,23 @@ const filteredRegions = regions.filter(region => {
 
         {filteredRegions.map(region => (
           <div className="col-md-4 mb-4" key={region.id}>
-
-            <Link to={`/regions/${region.id}`} style={{ textDecoration: "none" }}>
-              <div className="card">
-
+            {/* Передаємо назву області як query-параметр */}
+            <Link 
+              to={`/tours?region=${encodeURIComponent(region.name)}`} 
+              style={{ textDecoration: "none" }}
+            >
+              <div className="card h-100 shadow-sm border-0" style={{ transition: "0.3s" }}>
                 <img
                   src={region.image}
                   className="card-img-top"
+                  alt={region.name}
                   style={{ objectFit: "cover", height: "200px" }}
                 />
-
-                <div className="card-body">
-                  <h5 className="card-title">{region.name}</h5>
+                <div className="card-body text-center">
+                  <h5 className="card-title text-dark">{region.name}</h5>
                 </div>
-
               </div>
             </Link>
-
           </div>
         ))}
 

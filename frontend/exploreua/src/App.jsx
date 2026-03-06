@@ -2,9 +2,9 @@ import Home from "./Home/Home"
 import LocationsLayout from "./pages/LocatiosLayout"
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Navbar from "./Navbar"
-import Tours from "./Tours_3d/Tours"
-import TourViewer from "./Tours_3d/TourViewer"
-import Regions from "./Tours_3d/Regions"
+import Tours from "./GoogleMapsTours/Tours"
+import TourViewer from "./GoogleMapsTours/TourViewer"
+import Regions from "./GoogleMapsTours/Regions"
 
 function App() {
   return (
@@ -22,8 +22,9 @@ function App() {
         <Route path='/locations' element={<LocationsLayout />} />
         
 
-        <Route path="/3d-tours" element={<Regions />} />
-        <Route path="/3d-tours/:id" element={<TourViewer />} />
+        <Route path="/regions" element={<Regions />} />
+        <Route path="/tours" element={<Tours />} />
+        <Route path="/tours/:id" element={<TourViewer />} />
       </Routes>
       </BrowserRouter>
 

@@ -25,7 +25,7 @@ function Navbar() {
               <a className="nav-link" href="#">Маршрути</a>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/3d-tours">3д тури</Link>
+              <Link className="nav-link" to="/regions">3д тури</Link>
             </li>
           </ul>
 
