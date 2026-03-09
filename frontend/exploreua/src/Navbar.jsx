@@ -2,10 +2,11 @@ import { Link } from "react-router-dom"
 import { use, useEffect, useState } from "react" // Додаємо useState для прикладу
 import axios from "axios";
 import { tokenService } from "../services/token.service";
+import { accountService } from "../services/account.service";
 
 function Navbar() {
 
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  // const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   const [userData, setUserData] = useState(null);
   function getUser() {
@@ -23,6 +24,7 @@ function Navbar() {
   useEffect(() => {
     getUser();
   }, []);
+
 
   return (
     <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
@@ -63,7 +65,7 @@ function Navbar() {
           </form>
 
           <div className="d-flex align-items-center ms-3">
-            {isAuthenticated ? (
+            {accountService.isAuthenticated() ? (
               <div className="dropdown">
                 <a
                   href="#"
@@ -83,7 +85,7 @@ function Navbar() {
                 <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark text-small shadow">
                   <li><Link className="dropdown-item" to="/profile">Налаштування</Link></li>
                   <li><hr className="dropdown-divider" /></li>
-                  <li><button className="dropdown-item" onClick={() => setIsAuthenticated(false)}>Вийти</button></li>
+                  <li><Link className="dropdown-item" to="/login" onClick={() => accountService.logout()}>Вийти</Link></li>
                 </ul>
               </div>
             ) : (

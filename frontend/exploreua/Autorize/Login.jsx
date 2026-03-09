@@ -41,8 +41,8 @@ const Login = () => {
                 <div className="Form-div">
                     <div className="form-container">
                         <div className="fontdiv">
-                            <h2>Get Started Now</h2>
-                            <div className='FontSecond'><p>Please log in to your account to continue.</p></div>
+                            <h2>Почніть зараз</h2>
+                            <div className='FontSecond'><p>Будь ласка, увійдіть у свій обліковий запис, щоб продовжити.</p></div>
                         </div>
 
 
