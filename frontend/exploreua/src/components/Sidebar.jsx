@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 // import locations from '../data/locations';
 import LocationDetail from './LocationDetail';
 import './Sidebar.css';
+import Navbar from '../Navbar';
 
 const Sidebar = ({ selectedLocation, onSelectLocation, onBack }) => {
   const [filterText, setFilterText] = useState('');
@@ -36,6 +37,7 @@ const Sidebar = ({ selectedLocation, onSelectLocation, onBack }) => {
 
   return (
     <div className="sidebar">
+      
       {selectedLocation ? (
         <LocationDetail
           selectedLocation={selectedLocation}
