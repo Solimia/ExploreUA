@@ -108,7 +108,6 @@ function Tours() {
       const txHash = await payForTourBlockchain("1.0");
 
       if (txHash) {
-        // 4. Шлемо хеш на бекенд (той самий запит, що ми бачили в Swagger)
         const response = await axios.post(
           `${import.meta.env.VITE_API_URL}/api/Payments/unlock-all`,
           { transactionHash: txHash },
@@ -118,7 +117,6 @@ function Tours() {
         if (response.status === 200) {
           alert("Оплата успішна! Тепер вам відкриті всі локації.");
 
-          // Оновлюємо стан юзера локально, щоб кнопка спрацювала без рефрешу
           setUserData({ ...userData, hasPaid: true });
 
           navigate(`/tours/${locId}`);
