@@ -29,7 +29,7 @@
     align-items: center;
     border-radius: 27px;
     background-color: blue;
-    background-image: url("https://t4.ftcdn.net/jpg/13/03/67/05/360_F_1303670584_Xw7tymZFrgCBsxcEpguwkQMRpv9LwXaG.jpg");
+    background-image: url("https://bungalo.com.ua/wp-content/uploads/2025/06/glib-albovsky-sbpi02mzqxs-unsplash-1-1-scaled.jpg");
     background-size: cover;
     background-position: center;
 }
@@ -87,7 +87,8 @@ h2 {
     color: #6b7280;
     font-size: 15px;
     margin-bottom: 32px;
-    font-family: "Figtree", sans-serif;
+    font-family: "e-UkraineL", sans-serif;
+
 
 }
 
@@ -165,7 +166,7 @@ h2 {
 
 .LoginBtn-class1:hover {
     background-position: 0 100%;
-   
+
 }
 
 

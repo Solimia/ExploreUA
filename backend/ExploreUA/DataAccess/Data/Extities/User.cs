@@ -12,5 +12,6 @@ namespace DataAccess.Data.Entities
     public class User : IdentityUser
     {
         public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
+        public bool HasPaid { get; set; } = false;
     }
 }
