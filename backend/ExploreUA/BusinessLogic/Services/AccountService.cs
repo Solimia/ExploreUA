@@ -122,7 +122,8 @@ namespace BusinessLogic.Services
             {
                 Id = user.Id,
                 UserName = user.UserName,
-                Email = user.Email
+                Email = user.Email,
+                HasPaid = user.HasPaid
             };
             return profile;
         }
